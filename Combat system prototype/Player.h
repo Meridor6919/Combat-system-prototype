@@ -1,14 +1,14 @@
 #pragma once
-class Player
+struct Player
 {
 	int total_hp;
-	float initiative;
+	int initiative;
 
 
-	float current_hp;
-	float cureent_ini;
-	friend class Game;
-public:
+	int current_hp;
+	int cureent_ini;
+	
+
 	Player();
 };
 
