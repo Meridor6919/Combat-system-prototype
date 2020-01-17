@@ -4,11 +4,11 @@
 
 namespace skills
 {
-	void xd1(Player *attacker, Player *target)
+	void default_attack(Player *attacker, Player *target)
 	{
 		
 	}
-	void xd2(Player *attacker, Player *target)
+	void default_block(Player *attacker, Player *target)
 	{
 
 	}

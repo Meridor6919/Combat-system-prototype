@@ -2,24 +2,24 @@
 class Player;
 
 namespace skills {
-	extern void xd1(Player *attacker, Player *target);
-	extern void xd2(Player *attacker, Player *target);
+	extern void default_attack(Player *attacker, Player *target);
+	extern void default_block(Player *attacker, Player *target);
 
 
 	class Skills {
-		std::pair<int, void(*)(Player *attacker, Player *target)> Skill_array[skills::skill_names::last];
+		std::pair<int, void(*)(Player *attacker, Player *target)> Skill_array[skills::skill_names::Last];
 		
 		
 
 	public:
 		Skills()
 		{
-			Skill_array[skills::skill_names::default_attack] = std::make_pair( 100, &skills::xd1);
-			Skill_array[skills::skill_names::default_block] =  std::make_pair(100, &skills::xd2);
+			Skill_array[skills::skill_names::DefaultAttack] = std::make_pair( 100, &skills::default_attack);
+			Skill_array[skills::skill_names::DefaultBlock] =  std::make_pair(100, &skills::default_block);
 		}
 		auto TakeAction(int skill)
 		{
-			if (skill < skills::skill_names::last)
+			if (skill < skills::skill_names::Last)
 			{
 				return Skill_array[skill].second;
 			}
@@ -32,7 +32,7 @@ namespace skills {
 		}
 		int GetCost(int skill)
 		{
-			if (skill < skills::skill_names::last)
+			if (skill < skills::skill_names::Last)
 			{
 				return Skill_array[skill].first;
 			}
