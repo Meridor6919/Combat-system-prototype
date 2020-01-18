@@ -1,13 +1,14 @@
 #include "Constants.h"
+#include <string>
 class Player;
 
 namespace skills {
-	extern void default_attack(Player *attacker, Player *target);
-	extern void default_block(Player *attacker, Player *target);
+	extern std::string default_attack(Player *attacker, Player *target);
+	extern std::string default_block(Player *attacker, Player *target);
 
 
 	class Skills {
-		std::pair<int, void(*)(Player *attacker, Player *target)> Skill_array[skills::skill_names::Last];
+		std::pair<int, std::string(*)(Player *attacker, Player *target)> Skill_array[skills::skill_names::Last];
 		
 		
 
@@ -26,7 +27,7 @@ namespace skills {
 			else
 
 			{
-				void(*temp)(Player* p1, Player*p2) = nullptr;
+				std::string(*temp)(Player* p1, Player*p2) = nullptr;
 				return temp;
 			}
 		}

@@ -9,8 +9,8 @@ Game::Game()
 
 bool Game::New_Round()
 {
-	abilities->TakeAction(0)(players[0].get(), players[1].get());
-	abilities->TakeAction(1)(players[0].get(), players[1].get());
+	std::cout<<abilities->TakeAction(0)(players[0].get(), players[1].get());
+	std::cout<<abilities->TakeAction(1)(players[0].get(), players[1].get());
 	return false;
 }
 
