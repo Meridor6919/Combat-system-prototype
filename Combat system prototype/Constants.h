@@ -1,8 +1,6 @@
-namespace skills {
-	enum skill_names {
+enum skill_names {
 
-		DefaultAttack,
-		DefaultBlock,
-		Last
-	};
-}
+	DefaultAttack,
+	DefaultBlock,
+	Last
+};

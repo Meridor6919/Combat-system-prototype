@@ -7,8 +7,8 @@
 
 class Game
 {
+	SkillRegister *skill_register;
 	std::unique_ptr<Player> players[2];
-	std::unique_ptr<skills::Skills> abilities;
 	std::vector<std::string> report;
 	int round = 0;
 	bool winner;

@@ -1,12 +1,13 @@
 #pragma once
-struct Player
+class Player
 {
+public:
 	int total_hp;
 	int initiative;
 
 
 	int current_hp;
-	int cureent_ini;
+	int current_initiative;
 	
 
 	Player();
