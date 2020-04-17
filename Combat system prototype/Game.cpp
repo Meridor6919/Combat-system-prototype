@@ -11,15 +11,23 @@ CombatResult Game::StartCombat(Player *attacker, Player *defender)
 
 	for (int turn = 1; turn <= maximum_lenth_of_battle; ++turn)
 	{
-		report.emplace_back(attacker->UseAbility(turn, defender));
-		if (defender->current_hp <= 0)
+		attacker->GainInitiative();
+		while (attacker->CanUseAbility())
 		{
-			return CombatResult::AttackerWon;
+			report.emplace_back(attacker->UseAbility(defender));
+			if (defender->IsAlive())
+			{
+				return CombatResult::AttackerWon;
+			}
 		}
-		report.emplace_back(defender->UseAbility(turn, attacker));
-		if (attacker->current_hp <= 0)
+		defender->GainInitiative();
+		while (defender->CanUseAbility())
 		{
-			return CombatResult::DefenderWon;
+			report.emplace_back(defender->UseAbility(attacker));
+			if (attacker->IsAlive())
+			{
+				return CombatResult::DefenderWon;
+			}
 		}
 	}
 	return CombatResult::Draw;

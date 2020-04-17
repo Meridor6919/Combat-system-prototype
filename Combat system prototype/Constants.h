@@ -1,3 +1,4 @@
+#pragma once
 namespace Skills {
 	enum SkillName {
 		DefaultAttack,

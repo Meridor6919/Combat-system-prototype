@@ -1,3 +1,4 @@
+#pragma once
 #include "Constants.h"
 #include <string>
 class Player;
@@ -22,16 +23,7 @@ public:
 	}
 	auto TakeAction(SkillName skill_id)
 	{
-		if (skill_id < SkillName::Last)
-		{
-			return Skill_array[skill_id].second;
-		}
-		else
-
-		{
-			std::string(*temp)(Player* p1, Player*p2) = nullptr;
-			return temp;
-		}
+		return Skill_array[skill_id].second;
 	}
 	int GetCost(SkillName skill_id)
 	{
