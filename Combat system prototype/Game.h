@@ -4,18 +4,16 @@
 #include <Windows.h>
 #include <vector>
 #include "Skills.h"
+using namespace Combat;
+using namespace Skills;
 
 class Game
 {
-	SkillRegister *skill_register;
-	std::unique_ptr<Player> players[2];
-	std::vector<std::string> report;
-	int round = 0;
-	bool winner;
+	std::vector<std::unique_ptr<Player>> players = {};
+	std::vector<std::string> report = {};
 public:
-	Game();
-	bool New_Round();
-	void ShowReport();
-	bool Winner();
+	Game() {};
+	void InitializePlayers();
+	CombatResult StartCombat(Player *attacker, Player *defender);
 };
 

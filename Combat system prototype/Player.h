@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 class Player
 {
 public:
@@ -11,5 +13,6 @@ public:
 	
 
 	Player();
+	std::string UseAbility(int turn, Player *opponent) { return ""; };
 };
 

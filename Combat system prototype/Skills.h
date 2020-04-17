@@ -5,12 +5,14 @@ class Player;
 extern std::string default_attack(Player *attacker, Player *target);
 extern std::string default_block(Player *attacker, Player *target);
 
+using namespace Skills;
+
 class SkillRegister {
-	std::pair<int, std::string(*)(Player *attacker, Player *target)> Skill_array[skill_names::Last];
+	std::pair<int, std::string(*)(Player *attacker, Player *target)> Skill_array[SkillName::Last];
 	SkillRegister()
 	{
-		Skill_array[skill_names::DefaultAttack] = std::make_pair( 100, &default_attack);
-		Skill_array[skill_names::DefaultBlock] =  std::make_pair(100, &default_block);
+		Skill_array[SkillName::DefaultAttack] = std::make_pair( 100, &default_attack);
+		Skill_array[SkillName::DefaultBlock] =  std::make_pair(100, &default_block);
 	}
 public:
 	static SkillRegister* GetSkills()
@@ -18,9 +20,9 @@ public:
 		static SkillRegister s = SkillRegister();
 		return &s;
 	}
-	auto TakeAction(skill_names skill_id)
+	auto TakeAction(SkillName skill_id)
 	{
-		if (skill_id < skill_names::Last)
+		if (skill_id < SkillName::Last)
 		{
 			return Skill_array[skill_id].second;
 		}
@@ -31,9 +33,9 @@ public:
 			return temp;
 		}
 	}
-	int GetCost(skill_names skill_id)
+	int GetCost(SkillName skill_id)
 	{
-		if (skill_id < skill_names::Last)
+		if (skill_id < SkillName::Last)
 		{
 			return Skill_array[skill_id].first;
 		}

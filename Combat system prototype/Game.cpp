@@ -1,28 +1,26 @@
 #include "Game.h"
 
-Game::Game()
+void Game::InitializePlayers()
 {
-	players[0] = std::make_unique<Player>();
-	players[1] = std::make_unique<Player>();
-	skill_register = SkillRegister::GetSkills();
+	//player initialization
 }
-
-bool Game::New_Round()
+CombatResult Game::StartCombat(Player *attacker, Player *defender)
 {
-	report.push_back(skill_register->TakeAction(skill_names::DefaultAttack)(players[0].get(), players[1].get()));
-	report.push_back(skill_register->TakeAction(skill_names::DefaultAttack)(players[1].get(), players[0].get()));
-	return false;
-}
+	SkillRegister *skill_register = SkillRegister::GetSkills();
+	const int maximum_lenth_of_battle = 100;
 
-void Game::ShowReport()
-{
-	for (int i = 0; i < static_cast<int>(report.size()); ++i)
+	for (int turn = 1; turn <= maximum_lenth_of_battle; ++turn)
 	{
-		std::cout << report[i] << "\n";
+		report.emplace_back(attacker->UseAbility(turn, defender));
+		if (defender->current_hp <= 0)
+		{
+			return CombatResult::AttackerWon;
+		}
+		report.emplace_back(defender->UseAbility(turn, attacker));
+		if (attacker->current_hp <= 0)
+		{
+			return CombatResult::DefenderWon;
+		}
 	}
-}
-
-bool Game::Winner()
-{
-	return winner;
+	return CombatResult::Draw;
 }
