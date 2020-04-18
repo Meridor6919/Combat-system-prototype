@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 namespace Skills {
 	enum SkillName {
 		DefaultAttack,
@@ -13,4 +14,13 @@ namespace Combat {
 		Draw,
 		Last
 	};
+	const int maximum_length_of_battle = 100;
+}
+namespace ErrorMsg
+{
+	const std::string invalid_id = "id param exceeds vector of players";
+}
+namespace ErrorTitle
+{
+	const std::string invalid_id = "ID error";
 }

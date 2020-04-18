@@ -11,9 +11,10 @@ class Game
 {
 	std::vector<std::unique_ptr<Player>> players = {};
 	std::vector<std::string> report = {};
-public:
-	Game() {};
 	void InitializePlayers();
-	CombatResult StartCombat(Player *attacker, Player *defender);
+
+public:
+	Game();
+	CombatResult StartCombat(unsigned int attacker_id, unsigned int defender_id);
 };
 
