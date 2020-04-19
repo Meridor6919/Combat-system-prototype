@@ -1,7 +1,8 @@
 #include "Player.h"
 
-Player::Player(int hp, int initiative, std::vector<Skills::SkillName> move_set)
+Player::Player(std::string name, int hp, int initiative, std::vector<Skills::SkillName> move_set)
 {
+	this->name = name;
 	this->current_hp = hp;
 	this->total_hp = hp;
 	this->initiative = initiative;
@@ -16,6 +17,10 @@ bool Player::CanUseAbility()
 void Player::GainInitiative()
 {
 	accumulated_initiative += initiative;
+}
+std::string Player::GetName()
+{
+	return name;
 }
 std::string Player::UseAbility(Player * opponent)
 {
