@@ -4,9 +4,12 @@
 #include "Constants.h"
 #include "Skills.h"
 
+class Effect;
+
 using namespace Skills;
 class Player
 {
+	std::vector<Effect*> active_effects;
 	std::vector<Skills::SkillName> move_set;
 	std::string name;
 	int total_hp;
@@ -21,7 +24,10 @@ public:
 	bool IsAlive();
 	bool CanUseAbility();
 	void GainInitiative();
+	void ApplyEffect(Effect* effect);
+	void EndOfTurn();
 	std::string GetName();
 	std::string UseAbility(Player *opponent);
+	~Player();
 };
 

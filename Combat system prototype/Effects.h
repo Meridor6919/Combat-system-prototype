@@ -15,6 +15,12 @@ protected:
 	Effects::Effect effect_id;
 
 	virtual int GetDuration() = 0;
+	virtual void WhenVanish() {};
+	void LinkOtherEffect(Effect *other)
+	{
+		other->linked_effects.emplace_back(this);
+		this->linked_effects.emplace_back(other);
+	}
 
 public:
 	Effect(Effects::Effect effect_id, Player *target, Player *perpetrator, double effectivness_modifier, double duration_modifier)
@@ -23,7 +29,11 @@ public:
 		this->target = target;
 		this->perpetrator = perpetrator;
 		this->effectivness *= effectivness;
-		this->duration = round(GetDuration()*duration_modifier);
+		this->duration = static_cast<int>(round(GetDuration()*duration_modifier));
+	}
+	bool operator<(const Effect& other)
+	{
+		return this->effect_id < other.effect_id;
 	}
 	Effect& operator=(Effect& other)
 	{
@@ -40,14 +50,10 @@ public:
 		}
 		return *this;
 	}
-	void LinkOtherEffect(Effect *other)
-	{
-		other->linked_effects.emplace_back(this);
-		this->linked_effects.emplace_back(other);
-	}
 	~Effect()
 	{
-		for (int i = 0; i < static_cast<int>(linked_effects.size()); ++i)
+		WhenVanish();
+		for (int i = 0; i < static_cast<int>(linked_effects.size()); ++i)//unlinking this effect from other effects
 		{
 			for (int j = 0; j < static_cast<int>(linked_effects[i]->linked_effects.size()); ++j)
 			{
@@ -60,6 +66,5 @@ public:
 		}
 	}
 	virtual bool Tick() = 0;
-	virtual void WhenVanish() = 0;
 };
 
