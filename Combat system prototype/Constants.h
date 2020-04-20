@@ -16,6 +16,12 @@ namespace Combat {
 	};
 	const int maximum_length_of_battle = 100;
 }
+namespace Effects
+{
+	enum Effect {
+		Last
+	};
+}
 namespace ErrorMsg
 {
 	const std::string invalid_id = "id param exceeds vector of players";
