@@ -4,7 +4,7 @@
 class Player;
 
 extern std::string default_attack(Player *attacker, Player *target);
-extern std::string default_block(Player *attacker, Player *target);
+extern std::string bleeding_strike(Player *attacker, Player *target);
 
 using namespace Skills;
 
@@ -13,7 +13,7 @@ class SkillRegister {
 	SkillRegister()
 	{
 		Skill_array[SkillName::DefaultAttack] = std::make_pair( 100, &default_attack);
-		Skill_array[SkillName::DefaultBlock] =  std::make_pair(100, &default_block);
+		Skill_array[SkillName::BleedingStrike] =  std::make_pair(100, &bleeding_strike);
 	}
 public:
 	static SkillRegister* GetSkills()

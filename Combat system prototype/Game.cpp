@@ -31,12 +31,12 @@ std::string Game::GetReportTime()
 void Game::InitializePlayers()
 {
 	{
-		const std::vector<SkillName> move_set = { SkillName::DefaultAttack, SkillName::DefaultAttack, SkillName::DefaultBlock };
-		players.emplace_back(std::make_unique<Player>("attacker", 100, 10, move_set));
+		const std::vector<SkillName> move_set = { SkillName::DefaultAttack, SkillName::DefaultAttack, SkillName::BleedingStrike };
+		players.emplace_back(std::make_unique<Player>("attacker", 100, 50, move_set));
 	}
 	{
-		const std::vector<SkillName> move_set = { SkillName::DefaultBlock};
-		players.emplace_back(std::make_unique<Player>("defender", 100, 20, move_set));
+		const std::vector<SkillName> move_set = { SkillName::BleedingStrike};
+		players.emplace_back(std::make_unique<Player>("defender", 100, 40, move_set));
 	}
 }
 CombatResult Game::StartCombat(unsigned int attacker_id, unsigned int defender_id)
@@ -50,27 +50,33 @@ CombatResult Game::StartCombat(unsigned int attacker_id, unsigned int defender_i
 	std::ofstream report(("Reports\\" + GetReportTime() + ' ' + players[attacker_id]->GetName() + "_vs_" + players[defender_id]->GetName() + ".txt").c_str());
 	for (int turn = 1; turn <= maximum_length_of_battle; ++turn)
 	{
+		report << "Turn " + std::to_string(turn) + '\n';
 		players[attacker_id]->GainInitiative();
 		while (players[attacker_id]->CanUseAbility())
 		{
-			report << players[attacker_id]->UseAbility(players[defender_id].get()) + '\n';
+			report << '\t' + players[attacker_id]->UseAbility(players[defender_id].get()) + '\n';
 			if (!players[defender_id]->IsAlive())
 			{
+				report << players[attacker_id]->GetName() + " won";
 				report.close();
 				return CombatResult::AttackerWon;
 			}
 		}
+		players[attacker_id]->EndOfTurn();
 		players[defender_id]->GainInitiative();
 		while (players[defender_id]->CanUseAbility())
 		{
-			report << players[defender_id]->UseAbility(players[attacker_id].get()) + '\n';
+			report << '\t' + players[defender_id]->UseAbility(players[attacker_id].get()) + '\n';
 			if (!players[attacker_id]->IsAlive())
 			{
+				report << players[defender_id]->GetName() + " won";
 				report.close();
 				return CombatResult::DefenderWon;
 			}
 		}
+		players[defender_id]->EndOfTurn();
 	}
+	report << "Draw";
 	report.close();
 	return CombatResult::Draw;
 }

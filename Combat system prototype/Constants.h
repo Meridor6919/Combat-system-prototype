@@ -3,7 +3,7 @@
 namespace Skills {
 	enum SkillName {
 		DefaultAttack,
-		DefaultBlock,
+		BleedingStrike,
 		Last
 	};
 }
@@ -19,6 +19,7 @@ namespace Combat {
 namespace Effects
 {
 	enum Effect {
+		Bleeding,
 		Last
 	};
 }

@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bleeding.h" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Effects.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="EffectHeaders.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Skills.h" />
   </ItemGroup>

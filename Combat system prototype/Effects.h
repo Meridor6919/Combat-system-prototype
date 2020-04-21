@@ -14,7 +14,6 @@ protected:
 	std::vector<Effect*>linked_effects;
 	Effects::Effect effect_id;
 
-	virtual int GetDuration() = 0;
 	virtual void WhenVanish() {};
 	void LinkOtherEffect(Effect *other)
 	{
@@ -23,13 +22,12 @@ protected:
 	}
 
 public:
-	Effect(Effects::Effect effect_id, Player *target, Player *perpetrator, double effectivness_modifier, double duration_modifier)
+	
+	Effect(Player *target, Player *perpetrator, double effectivness_modifier)
 	{
-		this->effect_id = effect_id;
 		this->target = target;
 		this->perpetrator = perpetrator;
 		this->effectivness *= effectivness;
-		this->duration = static_cast<int>(round(GetDuration()*duration_modifier));
 	}
 	bool operator<(const Effect& other)
 	{
@@ -65,6 +63,10 @@ public:
 			}
 		}
 	}
-	virtual bool Tick() = 0;
+	virtual bool Tick()
+	{
+		--duration;
+		return duration <= 0;
+	}
 };
 
