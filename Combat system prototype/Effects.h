@@ -14,7 +14,7 @@ protected:
 	std::vector<Effect*>linked_effects;
 	Effects::Effect effect_id;
 
-	virtual void WhenVanish() {};
+	virtual std::string WhenVanish() { return ""; };
 	void LinkOtherEffect(Effect *other)
 	{
 		other->linked_effects.emplace_back(this);
@@ -63,10 +63,11 @@ public:
 			}
 		}
 	}
-	virtual bool Tick()
+	virtual std::string Tick(bool &active)
 	{
 		--duration;
-		return duration <= 0;
+		active = duration <= 0;
+		return "";
 	}
 };
 

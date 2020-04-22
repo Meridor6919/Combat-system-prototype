@@ -47,36 +47,47 @@ CombatResult Game::StartCombat(unsigned int attacker_id, unsigned int defender_i
 		MessageBox(0, ErrorMsg::invalid_id.c_str(), ErrorTitle::invalid_id.c_str(), 0);
 		exit(-1);
 	}
-	std::ofstream report(("Reports\\" + GetReportTime() + ' ' + players[attacker_id]->GetName() + "_vs_" + players[defender_id]->GetName() + ".txt").c_str());
+	
 	for (int turn = 1; turn <= maximum_length_of_battle; ++turn)
 	{
-		report << "Turn " + std::to_string(turn) + '\n';
+		report.emplace_back("Turn " + std::to_string(turn) + '\n');
 		players[attacker_id]->GainInitiative();
 		while (players[attacker_id]->CanUseAbility())
 		{
-			report << '\t' + players[attacker_id]->UseAbility(players[defender_id].get()) + '\n';
+			report.emplace_back('\t' + players[attacker_id]->UseAbility(players[defender_id].get()) + '\n');
 			if (!players[defender_id]->IsAlive())
 			{
-				report << players[attacker_id]->GetName() + " won";
-				report.close();
+				report.emplace_back(players[attacker_id]->GetName() + " won");
+				Save_Report(players[attacker_id]->GetName(), players[defender_id]->GetName());
 				return CombatResult::AttackerWon;
 			}
 		}
-		players[attacker_id]->EndOfTurn();
+		report.emplace_back(players[attacker_id]->EndOfTurn());
 		players[defender_id]->GainInitiative();
 		while (players[defender_id]->CanUseAbility())
 		{
-			report << '\t' + players[defender_id]->UseAbility(players[attacker_id].get()) + '\n';
+			report.emplace_back('\t' + players[defender_id]->UseAbility(players[attacker_id].get()) + '\n');
 			if (!players[attacker_id]->IsAlive())
 			{
-				report << players[defender_id]->GetName() + " won";
-				report.close();
+				report.emplace_back(players[defender_id]->GetName() + " won");
+				Save_Report(players[attacker_id]->GetName(), players[defender_id]->GetName());
 				return CombatResult::DefenderWon;
 			}
 		}
-		players[defender_id]->EndOfTurn();
+		report.emplace_back(players[defender_id]->EndOfTurn());
 	}
-	report << "Draw";
-	report.close();
+	report.emplace_back("Draw");
+	Save_Report(players[attacker_id]->GetName(), players[defender_id]->GetName());
 	return CombatResult::Draw;
+}
+
+void Game::Save_Report(std::string attacker_name, std::string defender_name)
+{
+	std::ofstream stream_report(("Reports\\" + GetReportTime() + ' ' + attacker_name + "_vs_" + defender_name + ".txt").c_str());
+	for (int i = 0; i < static_cast<int>(report.size()); ++i)
+	{
+		stream_report << report[i];
+	}
+	stream_report.close();
+	report.clear();
 }

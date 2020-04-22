@@ -13,11 +13,13 @@ using namespace Skills;
 class Game
 {
 	std::vector<std::unique_ptr<Player>> players = {};
+	std::vector<std::string> report;
 	std::string GetReportTime();
 	void InitializePlayers();
 
 public:
 	Game();
 	CombatResult StartCombat(unsigned int attacker_id, unsigned int defender_id);
+	void Save_Report(std::string attacker_name, std::string defender_name);
 };
 

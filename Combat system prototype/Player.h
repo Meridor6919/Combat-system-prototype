@@ -27,7 +27,7 @@ public:
 	bool CanUseAbility();
 	void GainInitiative();
 	void ApplyEffect(Effect* effect);
-	void EndOfTurn();
+	std::string EndOfTurn();
 	std::string GetName();
 	std::string UseAbility(Player *opponent);
 	~Player();

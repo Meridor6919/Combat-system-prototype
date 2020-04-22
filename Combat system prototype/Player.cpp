@@ -23,16 +23,20 @@ void Player::ApplyEffect(Effect* effect)
 {
 	active_effects.emplace_back(effect);
 }
-void Player::EndOfTurn()
+std::string Player::EndOfTurn()
 {
+	std::string return_value = "";
 	for (int i = 0; i < static_cast<int>(active_effects.size()); ++i)
 	{
-		if (active_effects[i]->Tick())
+		bool active = true;
+		return_value += active_effects[i]->Tick(active);
+		if (active)
 		{
 			delete active_effects[i];
 			active_effects.erase(active_effects.begin() + i);
 		}
 	}
+	return return_value;
 }
 std::string Player::GetName()
 {

@@ -9,9 +9,10 @@ public:
 		effect_id = Effects::Bleeding;
 		duration = 3;
 	}
-	bool Tick() override
+	std::string Tick(bool &active) override
 	{
-		target->current_hp -= 3 * effectivness;
-		return Effect::Tick();
+		Effect::Tick(active);
+		target->current_hp -= static_cast<int>(3.0 * effectivness);
+		return '\t' + target->GetName() + " took " + std::to_string(static_cast<int>(3.0 * effectivness)) + " dmg from bleeding.\n";
 	}
 };
