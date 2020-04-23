@@ -21,7 +21,20 @@ void Player::GainInitiative()
 }
 void Player::ApplyEffect(Effect* effect)
 {
-	active_effects.emplace_back(effect);
+	if (!active_effects.size())
+	{
+		active_effects.emplace_back(effect);
+		return;
+	}
+	std::vector<Effect*>::iterator it = std::lower_bound(active_effects.begin(), active_effects.end(), effect->GetID(), [](Effect* first, Effects::Effect id) { return first->GetID() < id; });
+	if ((*it)->GetID() == effect->GetID())
+	{
+		(*it) = effect;
+	}
+	else
+	{
+		active_effects.insert(it, effect);
+	}
 }
 std::string Player::EndOfTurn()
 {

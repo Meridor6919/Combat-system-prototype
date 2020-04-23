@@ -69,5 +69,9 @@ public:
 		active = duration <= 0;
 		return "";
 	}
+	Effects::Effect GetID()
+	{
+		return effect_id;
+	}
 };
 

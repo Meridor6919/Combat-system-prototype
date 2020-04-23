@@ -3,6 +3,7 @@
 #include <vector>
 #include "Constants.h"
 #include "Skills.h"
+#include <algorithm>
 
 class Effect;
 

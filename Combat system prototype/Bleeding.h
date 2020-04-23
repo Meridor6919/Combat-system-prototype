@@ -11,8 +11,9 @@ public:
 	}
 	std::string Tick(bool &active) override
 	{
+		double duration_now = static_cast<double>(duration);
 		Effect::Tick(active);
-		target->current_hp -= static_cast<int>(3.0 * effectivness);
-		return '\t' + target->GetName() + " took " + std::to_string(static_cast<int>(3.0 * effectivness)) + " dmg from bleeding.\n";
+		target->current_hp -= static_cast<int>(duration_now * effectivness);
+		return '\t' + target->GetName() + " took " + std::to_string(static_cast<int>(duration_now * effectivness)) + " dmg from bleeding.\n";
 	}
 };
