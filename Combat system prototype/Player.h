@@ -20,6 +20,7 @@ public:
 	int initiative;
 	int total_hp;
 	int accumulated_initiative = 0;
+	double attack_modifier = 1.0;
 	int current_hp;
 
 	Player() = delete;

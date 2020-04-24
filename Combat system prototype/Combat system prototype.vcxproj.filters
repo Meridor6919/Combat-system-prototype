@@ -50,5 +50,8 @@
     <ClInclude Include="EffectHeaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Weakness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+#pragma once
 #include "Effects.h"
 
 class Bleeding : public Effect
