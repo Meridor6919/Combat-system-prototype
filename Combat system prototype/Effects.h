@@ -9,8 +9,6 @@ class Effect
 protected:
 	Player *target;
 	Player *perpetrator;
-	double effectivness = 1.0;
-	int duration;
 	std::vector<Effect*>linked_effects;
 	Effects::Effect effect_id;
 
@@ -22,6 +20,9 @@ protected:
 	}
 
 public:
+
+	double effectivness = 1.0;
+	int duration;
 	
 	Effect(Player *target, Player *perpetrator, double effectivness_modifier)
 	{
@@ -33,18 +34,15 @@ public:
 	{
 		return this->effect_id < other.effect_id;
 	}
-	Effect& operator=(Effect& other)
+	virtual Effect& operator=(Effect& other)
 	{
-		if (this != &other)
+		if (this->effectivness < other.effectivness)
 		{
-			if (this->effectivness < other.effectivness)
-			{
-				this->effectivness = other.effectivness;
-			}
-			if (this->duration < other.duration)
-			{
-				this->duration = other.duration;
-			}
+			this->effectivness = other.effectivness;
+		}
+		if (this->duration < other.duration)
+		{
+			this->duration = other.duration;
 		}
 		return *this;
 	}

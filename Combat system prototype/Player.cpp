@@ -28,9 +28,13 @@ void Player::ApplyEffect(Effect* effect)
 		return;
 	}
 	std::vector<Effect*>::iterator it = std::lower_bound(active_effects.begin(), active_effects.end(), effect->GetID(), [](Effect* first, Effects::Effect id) { return first->GetID() < id; });
-	if ((*it)->GetID() == effect->GetID())
+	if (it == active_effects.end())
 	{
-		(*it) = effect;
+		active_effects.emplace_back(effect);
+	}
+	else if ((*it)->GetID() == effect->GetID())
+	{
+		*(*it) = *effect;
 		delete effect;
 	}
 	else

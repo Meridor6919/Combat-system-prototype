@@ -35,8 +35,8 @@ void Game::InitializePlayers()
 		players.emplace_back(std::make_unique<Player>("attacker", 100, 50, move_set));
 	}
 	{
-		const std::vector<SkillName> move_set = { SkillName::BleedingStrike};
-		players.emplace_back(std::make_unique<Player>("defender", 100, 40, move_set));
+		const std::vector<SkillName> move_set = { SkillName::BleedingStrike, SkillName::WeakeningStrike,  SkillName::BleedingStrike,  SkillName::BleedingStrike};
+		players.emplace_back(std::make_unique<Player>("defender", 100, 50, move_set));
 	}
 }
 CombatResult Game::StartCombat(unsigned int attacker_id, unsigned int defender_id)

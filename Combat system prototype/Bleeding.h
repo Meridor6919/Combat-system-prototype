@@ -17,4 +17,23 @@ public:
 		target->current_hp -= static_cast<int>(duration_now * effectivness);
 		return '\t' + target->GetName() + " took " + std::to_string(static_cast<int>(duration_now * effectivness)) + " dmg from bleeding.\n";
 	}
+	Bleeding& operator=(Effect& other) override
+	{
+		if (this != &other)
+		{
+			if (this->effectivness < other.effectivness)
+			{
+				this->effectivness = other.effectivness + this->effectivness*0.1;
+			}
+			else
+			{
+				this->effectivness = other.effectivness*0.1 + this->effectivness;
+			}
+		}
+		if (this->duration < other.duration)
+		{
+			this->duration = other.duration;
+		}
+		return *this;
+	}
 };
