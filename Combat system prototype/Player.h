@@ -14,13 +14,15 @@ class Player
 	std::vector<Skills::SkillName> move_set;
 	int move_id = 0;
 	std::string name;
+	int base_initiative;
+	int base_hp;
 	
+	void SetDefaultValues();
 public:
 
 	int initiative;
-	int total_hp;
 	int accumulated_initiative = 0;
-	double attack_modifier = 1.0;
+	double attack_modifier;
 	int current_hp;
 
 	Player() = delete;

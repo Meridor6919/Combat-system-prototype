@@ -5,9 +5,10 @@ Player::Player(std::string name, int hp, int initiative, std::vector<Skills::Ski
 {
 	this->name = name;
 	this->current_hp = hp;
-	this->total_hp = hp;
-	this->initiative = initiative;
+	this->base_hp = hp;
+	this->base_initiative = initiative;
 	this->move_set = move_set;
+	SetDefaultValues();
 }
 bool Player::CanUseAbility()
 {
@@ -30,14 +31,21 @@ void Player::ApplyEffect(Effect* effect)
 	if ((*it)->GetID() == effect->GetID())
 	{
 		(*it) = effect;
+		delete effect;
 	}
 	else
 	{
 		active_effects.insert(it, effect);
 	}
 }
+void Player::SetDefaultValues()
+{
+	initiative = base_initiative;
+	attack_modifier = 1.0;
+}
 std::string Player::EndOfTurn()
 {
+	SetDefaultValues();
 	std::string return_value = "";
 	for (int i = 0; i < static_cast<int>(active_effects.size()); ++i)
 	{
