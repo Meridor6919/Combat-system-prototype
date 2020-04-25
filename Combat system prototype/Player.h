@@ -34,6 +34,7 @@ public:
 	std::string EndOfTurn();
 	std::string GetName();
 	std::string UseAbility(Player *opponent);
+	void Reset();
 	~Player();
 };
 

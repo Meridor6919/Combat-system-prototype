@@ -39,6 +39,11 @@ void Game::InitializePlayers()
 		players.emplace_back(std::make_unique<Player>("defender", 100, 50, move_set));
 	}
 }
+void Game::ResetPlayers(unsigned int attacker_id, unsigned int defender_id)
+{
+	players[attacker_id]->Reset();
+	players[defender_id]->Reset();
+}
 CombatResult Game::StartCombat(unsigned int attacker_id, unsigned int defender_id)
 {
 	SkillRegister *skill_register = SkillRegister::GetSkills();
@@ -59,6 +64,7 @@ CombatResult Game::StartCombat(unsigned int attacker_id, unsigned int defender_i
 			{
 				report.emplace_back(players[attacker_id]->GetName() + " won");
 				Save_Report(players[attacker_id]->GetName(), players[defender_id]->GetName());
+				ResetPlayers(attacker_id, defender_id);
 				return CombatResult::AttackerWon;
 			}
 		}
@@ -71,6 +77,7 @@ CombatResult Game::StartCombat(unsigned int attacker_id, unsigned int defender_i
 			{
 				report.emplace_back(players[defender_id]->GetName() + " won");
 				Save_Report(players[attacker_id]->GetName(), players[defender_id]->GetName());
+				ResetPlayers(attacker_id, defender_id);
 				return CombatResult::DefenderWon;
 			}
 		}
@@ -78,6 +85,7 @@ CombatResult Game::StartCombat(unsigned int attacker_id, unsigned int defender_i
 	}
 	report.emplace_back("Draw");
 	Save_Report(players[attacker_id]->GetName(), players[defender_id]->GetName());
+	ResetPlayers(attacker_id, defender_id);
 	return CombatResult::Draw;
 }
 

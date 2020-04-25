@@ -16,6 +16,7 @@ class Game
 	std::vector<std::string> report;
 	std::string GetReportTime();
 	void InitializePlayers();
+	void ResetPlayers(unsigned int attacker_id, unsigned int defender_id);
 
 public:
 	Game();

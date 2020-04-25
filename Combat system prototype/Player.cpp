@@ -75,6 +75,11 @@ std::string Player::UseAbility(Player * opponent)
 	move_id = (move_id + 1) % static_cast<int>(move_set.size());
 	return ret;
 }
+void Player::Reset()
+{
+	this->current_hp = base_hp;
+	SetDefaultValues();
+}
 Player::~Player()
 {
 	for (int i = 0; i < static_cast<int>(active_effects.size()); ++i)
